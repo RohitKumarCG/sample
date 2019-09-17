@@ -1,0 +1,6 @@
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.Entities\bin\Debug\Inventory.Entities.dll
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.Entities\bin\Debug\Inventory.Entities.pdb
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.Entities\obj\Debug\Inventory.Entities.csproj.CoreCompileInputs.cache
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.Entities\obj\Debug\Inventory.Entities.dll
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.Entities\obj\Debug\Inventory.Entities.pdb
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.Entities\obj\Debug\Inventory.Entities.csprojAssemblyReference.cache

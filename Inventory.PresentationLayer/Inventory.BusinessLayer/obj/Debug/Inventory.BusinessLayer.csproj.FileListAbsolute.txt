@@ -1,0 +1,15 @@
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.BusinessLayer\bin\Debug\Inventory.BusinessLayer.dll
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.BusinessLayer\bin\Debug\Inventory.BusinessLayer.pdb
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.BusinessLayer\bin\Debug\Inventory.DataAccessLayer.dll
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.BusinessLayer\bin\Debug\Inventory.Entities.dll
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.BusinessLayer\bin\Debug\Inventory.Exception.dll
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.BusinessLayer\bin\Debug\Inventory.DataAccessLayer.pdb
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.BusinessLayer\bin\Debug\Inventory.Entities.pdb
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.BusinessLayer\bin\Debug\Inventory.Exception.pdb
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.BusinessLayer\obj\Debug\Inventory.BusinessLayer.csprojAssemblyReference.cache
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.BusinessLayer\obj\Debug\Inventory.BusinessLayer.csproj.CoreCompileInputs.cache
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.BusinessLayer\obj\Debug\Inventory.BusinessLayer.csproj.CopyComplete
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.BusinessLayer\obj\Debug\Inventory.BusinessLayer.dll
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.BusinessLayer\obj\Debug\Inventory.BusinessLayer.pdb
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.BusinessLayer\bin\Debug\Newtonsoft.Json.dll
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.BusinessLayer\bin\Debug\Newtonsoft.Json.xml

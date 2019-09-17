@@ -1,0 +1,6 @@
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.Exception\bin\Debug\Inventory.Exception.dll
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.Exception\bin\Debug\Inventory.Exception.pdb
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.Exception\obj\Debug\Inventory.Exception.csproj.CoreCompileInputs.cache
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.Exception\obj\Debug\Inventory.Exception.dll
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.Exception\obj\Debug\Inventory.Exception.pdb
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.Exception\obj\Debug\Inventory.Exception.csprojAssemblyReference.cache

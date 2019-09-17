@@ -1,0 +1,13 @@
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.DataAccessLayer\bin\Debug\Inventory.DataAccessLayer.dll
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.DataAccessLayer\bin\Debug\Inventory.DataAccessLayer.pdb
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.DataAccessLayer\bin\Debug\Inventory.Entities.dll
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.DataAccessLayer\bin\Debug\Inventory.Exception.dll
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.DataAccessLayer\bin\Debug\Inventory.Entities.pdb
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.DataAccessLayer\bin\Debug\Inventory.Exception.pdb
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.DataAccessLayer\obj\Debug\Inventory.DataAccessLayer.csprojAssemblyReference.cache
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.DataAccessLayer\obj\Debug\Inventory.DataAccessLayer.csproj.CoreCompileInputs.cache
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.DataAccessLayer\obj\Debug\Inventory.DataAccessLayer.csproj.CopyComplete
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.DataAccessLayer\obj\Debug\Inventory.DataAccessLayer.dll
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.DataAccessLayer\obj\Debug\Inventory.DataAccessLayer.pdb
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.DataAccessLayer\bin\Debug\Newtonsoft.Json.dll
+C:\CapG\case_study\Inventory.PresentationLayer\Inventory.DataAccessLayer\bin\Debug\Newtonsoft.Json.xml
