@@ -97,21 +97,24 @@ namespace Inventory.PresentationLayer
             try
             {
                 RawMaterial newRawMaterial = new RawMaterial();
-                Console.WriteLine("Enter RawMaterialID :");
+                Console.WriteLine("Enter Raw Material ID :");
                 newRawMaterial.RawMaterialID = Console.ReadLine();
                 Console.WriteLine("Enter Raw Material Name :");
                 newRawMaterial.RawMaterialName = Console.ReadLine();
-
-
+                bool getCodeIfNameExists = false;
                 foreach (RawMaterial item in RawMaterialDAL.rawMaterialList)
                 {
-                    if(item.RawMaterialName == newRawMaterial.RawMaterialName)
+                    if (item.RawMaterialName == newRawMaterial.RawMaterialName)
                     {
-
+                        newRawMaterial.RawMaterialCode = item.RawMaterialCode;
+                        getCodeIfNameExists = true;
                     }
                 }
-                Console.WriteLine("Enter Raw Material Code :");
-                newRawMaterial.RawMaterialCode = Console.ReadLine();
+                if(getCodeIfNameExists == false)
+                {
+                    Console.WriteLine("Enter Raw Material Code :");
+                    newRawMaterial.RawMaterialCode = Console.ReadLine();
+                }
                 RawMaterialBL rawMaterialBL = new RawMaterialBL();
                 bool rawMaterialAdded = rawMaterialBL.AddRawMaterialBL(newRawMaterial);
                 if (rawMaterialAdded)
@@ -191,13 +194,16 @@ namespace Inventory.PresentationLayer
                 Console.WriteLine("Enter Raw Material Name to Search:");
                 searchRawMaterialName = Console.ReadLine();
                 RawMaterialBL rawMaterialBL = new RawMaterialBL();
-                RawMaterial searchRawMaterial = rawMaterialBL.SearchRawMaterialByNameBL(searchRawMaterialName);
-                if (searchRawMaterial != null)
+                List<RawMaterial> searchRawMaterialList = rawMaterialBL.SearchRawMaterialByNameBL(searchRawMaterialName);
+                if (searchRawMaterialList != null)
                 {
                     Console.WriteLine("******************************************************************************");
                     Console.WriteLine("ID\t\tName\t\tCode");
                     Console.WriteLine("******************************************************************************");
-                    Console.WriteLine("{0}\t\t{1}\t\t{2}", searchRawMaterial.RawMaterialID, searchRawMaterial.RawMaterialName, searchRawMaterial.RawMaterialCode);
+                    foreach (RawMaterial item in searchRawMaterialList)
+                    {
+                        Console.WriteLine("{0}\t\t{1}\t\t{2}", item.RawMaterialID, item.RawMaterialName, item.RawMaterialCode);
+                    }
                     Console.WriteLine("******************************************************************************");
                 }
                 else
@@ -220,13 +226,17 @@ namespace Inventory.PresentationLayer
                 Console.WriteLine("Enter Raw Material ID to Search:");
                 searchRawMaterialCode = Console.ReadLine();
                 RawMaterialBL rawMaterialBL = new RawMaterialBL();
-                RawMaterial searchRawMaterial = rawMaterialBL.SearchRawMaterialByCodeBL(searchRawMaterialCode);
-                if (searchRawMaterial != null)
+                List<RawMaterial> searchRawMaterialList = rawMaterialBL.SearchRawMaterialByCodeBL(searchRawMaterialCode);
+                if (searchRawMaterialList != null)
                 {
                     Console.WriteLine("******************************************************************************");
                     Console.WriteLine("ID\t\tName\t\tCode");
                     Console.WriteLine("******************************************************************************");
-                    Console.WriteLine("{0}\t\t{1}\t\t{2}", searchRawMaterial.RawMaterialID, searchRawMaterial.RawMaterialName, searchRawMaterial.RawMaterialCode);
+
+                    foreach (RawMaterial item in searchRawMaterialList)
+                    {
+                        Console.WriteLine("{0}\t\t{1}\t\t{2}", item.RawMaterialID, item.RawMaterialName, item.RawMaterialCode);
+                    }
                     Console.WriteLine("******************************************************************************");
                 }
                 else
@@ -245,18 +255,19 @@ namespace Inventory.PresentationLayer
         {
             try
             {
-                string updateRawMaterialID;
-                Console.WriteLine("Enter Raw Material ID to Update Details:");
-                updateRawMaterialID = Console.ReadLine();
+                string updateRawMaterialName;
+                Console.WriteLine("Enter Raw Material Name that has to be Updated:");
+                updateRawMaterialName = Console.ReadLine();
                 RawMaterialBL rawMaterialBL = new RawMaterialBL();
-                RawMaterial updatedRawMaterial = rawMaterialBL.SearchRawMaterialByIDBL(updateRawMaterialID);
-                if (updatedRawMaterial != null)
+                List<RawMaterial> updatedRawMaterialList = rawMaterialBL.SearchRawMaterialByNameBL(updateRawMaterialName);
+                if (updatedRawMaterialList != null)
                 {
-                    Console.WriteLine("Update Raw Material Name :");
+                    RawMaterial updatedRawMaterial = new RawMaterial();
+                    Console.WriteLine("Updated Raw Material Name :");
                     updatedRawMaterial.RawMaterialName = Console.ReadLine();
-                    Console.WriteLine("Update Raw Material Code :");
+                    Console.WriteLine("Updated Raw Material Code :");
                     updatedRawMaterial.RawMaterialCode = Console.ReadLine();
-                    bool rawMaterialUpdated = rawMaterialBL.UpdateRawMaterialBL(updatedRawMaterial);
+                    bool rawMaterialUpdated = rawMaterialBL.UpdateRawMaterialBL(updatedRawMaterial, updatedRawMaterialList);
                     if (rawMaterialUpdated)
                         Console.WriteLine("Raw Material Details Updated");
                     else
@@ -415,7 +426,7 @@ namespace Inventory.PresentationLayer
             catch (SystemException ex)
             {
                 Console.WriteLine(ex.Message);
-            }        
+            }
         }
 
         private static void ListAllProduct()
