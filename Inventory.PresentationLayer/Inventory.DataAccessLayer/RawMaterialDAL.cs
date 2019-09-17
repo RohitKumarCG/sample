@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -57,7 +57,7 @@ namespace Inventory.DataAccessLayer
             try
             {
                 RawMaterial deleteRawMaterial = null;
-                foreach (RawMaterial item in rawMaterialList) 
+                foreach (RawMaterial item in rawMaterialList)
                 {
                     if (item.RawMaterialID == deleteRawMaterialID)
                     {
