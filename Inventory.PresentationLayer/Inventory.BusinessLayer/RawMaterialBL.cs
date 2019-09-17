@@ -17,11 +17,11 @@ namespace Inventory.BusinessLayer
         public abstract bool ValidateRawMaterial(RawMaterial rawMaterial);
         public abstract bool AddRawMaterialBL(RawMaterial newRawMaterial);
         public abstract bool DeleteRawMaterialBL(string deleteRawMaterialID);
-        public abstract bool UpdateRawMaterialBL(RawMaterial updateRawMaterial);
+        public abstract bool UpdateRawMaterialBL(RawMaterial updateRawMaterial, List<RawMaterial> updatedRawMaterialList);
         public abstract List<RawMaterial> GetAllRawMaterialsBL();
         public abstract RawMaterial SearchRawMaterialByIDBL(string searchRawMaterialID);
-        public abstract RawMaterial SearchRawMaterialByNameBL(string searchRawMaterialName);
-        public abstract RawMaterial SearchRawMaterialByCodeBL(string searchRawMaterialCode);
+        public abstract List<RawMaterial> SearchRawMaterialByNameBL(string searchRawMaterialName);
+        public abstract List<RawMaterial> SearchRawMaterialByCodeBL(string searchRawMaterialCode);
         public abstract bool RawMaterialSerializeBL();
         public abstract List<RawMaterial> RawMaterialDeserializeBL();
     }
@@ -43,7 +43,7 @@ namespace Inventory.BusinessLayer
                 sb.Append("\nInvalid Raw Material Name");
             }
 
-            //Rule: Can contain alphabets only,no spaces , length less than 5
+            //Rule: Can contain alphabets only,no spaces, length less than 5
             Regex regex2 = new Regex("^[a-zA-Z]+$");
             if (!regex2.IsMatch(rawMaterial.RawMaterialCode) || rawMaterial.RawMaterialCode == String.Empty || rawMaterial.RawMaterialCode.Length > 5)
             {
@@ -110,7 +110,7 @@ namespace Inventory.BusinessLayer
         }
 
         //validate raw material details before calling update
-        public override bool UpdateRawMaterialBL(RawMaterial updateRawMaterial)
+        public override bool UpdateRawMaterialBL(RawMaterial updateRawMaterial, List<RawMaterial>updatedRawMaterialList)
         {
             bool rawMaterialUpdated = false;
             try
@@ -118,7 +118,7 @@ namespace Inventory.BusinessLayer
                 if (ValidateRawMaterial(updateRawMaterial))
                 {
                     RawMaterialDAL rawMaterialDAL = new RawMaterialDAL();
-                    rawMaterialUpdated = rawMaterialDAL.UpdateRawMaterialDAL(updateRawMaterial);
+                    rawMaterialUpdated = rawMaterialDAL.UpdateRawMaterialDAL(updateRawMaterial, updatedRawMaterialList);
                 }
             }
             catch (InventoryException)
@@ -174,13 +174,13 @@ namespace Inventory.BusinessLayer
         }
 
         //calling search method
-        public override RawMaterial SearchRawMaterialByNameBL(string searchRawMaterialName)
+        public override List<RawMaterial> SearchRawMaterialByNameBL(string searchRawMaterialName)
         {
-            RawMaterial searchRawMaterial = null;
+            List<RawMaterial> searchRawMaterialList = null;
             try
             {
                 RawMaterialDAL rawMaterialDAL = new RawMaterialDAL();
-                searchRawMaterial = rawMaterialDAL.SearchRawMaterialByNameDAL(searchRawMaterialName);
+                searchRawMaterialList = rawMaterialDAL.SearchRawMaterialByNameDAL(searchRawMaterialName);
             }
             catch (InventoryException ex)
             {
@@ -190,17 +190,17 @@ namespace Inventory.BusinessLayer
             {
                 throw ex;
             }
-            return searchRawMaterial;
+            return searchRawMaterialList;
         }
 
         //calling search method
-        public override RawMaterial SearchRawMaterialByCodeBL(string searchRawMaterialCode)
+        public override List<RawMaterial> SearchRawMaterialByCodeBL(string searchRawMaterialCode)
         {
-            RawMaterial searchRawMaterial = null;
+            List<RawMaterial> searchRawMaterialList = null;
             try
             {
                 RawMaterialDAL rawMaterialDAL = new RawMaterialDAL();
-                searchRawMaterial = rawMaterialDAL.SearchRawMaterialByCodeDAL(searchRawMaterialCode);
+                searchRawMaterialList = rawMaterialDAL.SearchRawMaterialByCodeDAL(searchRawMaterialCode);
             }
             catch (InventoryException ex)
             {
@@ -210,7 +210,7 @@ namespace Inventory.BusinessLayer
             {
                 throw ex;
             }
-            return searchRawMaterial;
+            return searchRawMaterialList;
         }
 
         //Serilize Data
