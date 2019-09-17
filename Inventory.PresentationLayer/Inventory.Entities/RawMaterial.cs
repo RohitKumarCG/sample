@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +15,7 @@ namespace Inventory.Entities
     }
 
     //Class for RawMaterial
+
     public class RawMaterial : IRawMaterial
     {
         //auto-implemented properties
