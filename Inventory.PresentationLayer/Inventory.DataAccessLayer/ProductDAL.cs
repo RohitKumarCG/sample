@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -88,7 +88,7 @@ namespace Inventory.DataAccessLayer
                     if (item.ProductID == updateProduct.ProductID)
                     {
                         item.ProductName = updateProduct.ProductName;
-                        item.ProductCode = updateProduct.ProductCode;
+                        //item.ProductCode = updateProduct.ProductCode;
                         productUpdated = true;
                     }
                 }
