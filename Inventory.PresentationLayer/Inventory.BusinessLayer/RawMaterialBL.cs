@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,37 +35,17 @@ namespace Inventory.BusinessLayer
             StringBuilder sb = new StringBuilder();
             bool validRawMaterial = true;
 
-            /*foreach (RawMaterial item in RawMaterialDAL.rawMaterialList)
-            {
-                if (item.RawMaterialID == rawMaterial.RawMaterialID)
-                {
-                    validRawMaterial = false;
-                    sb.Append("\nRaw Material ID already exists");
-                }
-            }*/
-            if (rawMaterial.RawMaterialID == String.Empty || rawMaterial.RawMaterialID.Length > 5)
-            {
-                validRawMaterial = false;
-                sb.Append("\nInvalid Raw Material ID");
-            }
-
-            Regex regex1 = new Regex("^[a-zA-Z]+$");
+            //Rule: Can contain alphabets only,spaces allowed, length less than 30
+            Regex regex1 = new Regex("^[a-zA-Z ]+$");
             if (!regex1.IsMatch(rawMaterial.RawMaterialName) || rawMaterial.RawMaterialName == String.Empty || rawMaterial.RawMaterialName.Length > 30)
             {
                 validRawMaterial = false;
                 sb.Append("\nInvalid Raw Material Name");
             }
 
-            /*foreach (RawMaterial item in RawMaterialDAL.rawMaterialList)
-            {
-                if (item.RawMaterialCode == rawMaterial.RawMaterialCode)
-                {
-                    validRawMaterial = false;
-                    sb.Append("\nRaw Material Code already exists");
-                }
-            }*/
+            //Rule: Can contain alphabets only,no spaces , length less than 5
             Regex regex2 = new Regex("^[a-zA-Z]+$");
-            if (!regex2.IsMatch(rawMaterial.RawMaterialName) || rawMaterial.RawMaterialCode == String.Empty || rawMaterial.RawMaterialCode.Length > 4)
+            if (!regex1.IsMatch(rawMaterial.RawMaterialCode) || rawMaterial.RawMaterialCode == String.Empty || rawMaterial.RawMaterialCode.Length > 5)
             {
                 validRawMaterial = false;
                 sb.Append("\nInvalid Raw Material Code");
