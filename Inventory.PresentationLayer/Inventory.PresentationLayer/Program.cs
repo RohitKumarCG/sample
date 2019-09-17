@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +17,7 @@ namespace Inventory.PresentationLayer
             RawMaterial rawMaterial1 = new RawMaterial() { RawMaterialID = "RM101", RawMaterialName = "Mango", RawMaterialCode = "MGO" };
             RawMaterialBL rawMaterialBL = new RawMaterialBL();
             rawMaterialBL.AddRawMaterialBL(rawMaterial1);
-            Product product1 = new Product() {ProductID = "P101", ProductName = "MJUICE", ProductCode = "MJ", ProductMFD = "12-09-2019", ProductEXP = "12-09-2020", ProductType = "MOCKTAIL" };
+            Product product1 = new Product() { ProductID = "P101", ProductName = "MJUICE", ProductCode = "JC", ProductMFD = "12-09-2019", ProductEXP = "12-09-2020", ProductType = "Juice" };
             ProductBL productBL = new ProductBL();
             productBL.AddProductBL(product1);
 
@@ -101,6 +101,15 @@ namespace Inventory.PresentationLayer
                 newRawMaterial.RawMaterialID = Console.ReadLine();
                 Console.WriteLine("Enter Raw Material Name :");
                 newRawMaterial.RawMaterialName = Console.ReadLine();
+
+
+                foreach (RawMaterial item in RawMaterialDAL.rawMaterialList)
+                {
+                    if(item.RawMaterialName == newRawMaterial.RawMaterialName)
+                    {
+
+                    }
+                }
                 Console.WriteLine("Enter Raw Material Code :");
                 newRawMaterial.RawMaterialCode = Console.ReadLine();
                 RawMaterialBL rawMaterialBL = new RawMaterialBL();
@@ -310,7 +319,7 @@ namespace Inventory.PresentationLayer
             catch (SystemException ex)
             {
 
-                Console.WriteLine(ex.Message); 
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -348,18 +357,54 @@ namespace Inventory.PresentationLayer
             try
             {
                 Product newProduct = new Product();
+                int choice;
+
+                Console.WriteLine("Press 1 for Juice");
+                Console.WriteLine("Press 2 for Soft Drink");
+                Console.WriteLine("Press 3 for Energy Drink");
+                Console.WriteLine("Press 4 for Mocktail");
+                Console.WriteLine("Press 5 for Tonic Water");
+                Console.WriteLine("Enter your Choice:");
+                do
+                {
+                    choice = Convert.ToInt32(Console.ReadLine());
+                    switch (choice)
+                    {
+                        case 1:
+                            newProduct.ProductType = "Juice";
+                            newProduct.ProductCode = "JC";
+                            break;
+                        case 2:
+                            newProduct.ProductType = "Soft Drink";
+                            newProduct.ProductCode = "SD";
+                            break;
+                        case 3:
+                            newProduct.ProductType = "Energy Drink";
+                            newProduct.ProductCode = "ED";
+                            break;
+                        case 4:
+                            newProduct.ProductType = "Mocktail";
+                            newProduct.ProductCode = "MT";
+                            break;
+                        case 5:
+                            newProduct.ProductType = "Tonic Water";
+                            newProduct.ProductCode = "TW";
+                            break;
+                        default:
+                            Console.WriteLine("Wrong Choice, please enter again");
+                            break;
+                    }
+                } while ((choice > 6) || (choice < 0));
+
                 Console.WriteLine("Enter Product ID :");
                 newProduct.ProductID = Console.ReadLine();
                 Console.WriteLine("Enter Product Name :");
                 newProduct.ProductName = Console.ReadLine();
-                Console.WriteLine("Enter Product Code :");
-                newProduct.ProductCode = Console.ReadLine();
                 Console.WriteLine("Enter Product MFD :");
                 newProduct.ProductMFD = Console.ReadLine();
                 Console.WriteLine("Enter Product EXP :");
                 newProduct.ProductEXP = Console.ReadLine();
-                Console.WriteLine("Enter Product Type :");
-                newProduct.ProductType = Console.ReadLine();
+
                 ProductBL productBL = new ProductBL();
                 bool productAdded = productBL.AddProductBL(newProduct);
                 if (productAdded)
@@ -370,7 +415,7 @@ namespace Inventory.PresentationLayer
             catch (SystemException ex)
             {
                 Console.WriteLine(ex.Message);
-            }
+            }        
         }
 
         private static void ListAllProduct()
