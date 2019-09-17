@@ -45,7 +45,7 @@ namespace Inventory.BusinessLayer
 
             //Rule: Can contain alphabets only,no spaces , length less than 5
             Regex regex2 = new Regex("^[a-zA-Z]+$");
-            if (!regex1.IsMatch(rawMaterial.RawMaterialCode) || rawMaterial.RawMaterialCode == String.Empty || rawMaterial.RawMaterialCode.Length > 5)
+            if (!regex2.IsMatch(rawMaterial.RawMaterialCode) || rawMaterial.RawMaterialCode == String.Empty || rawMaterial.RawMaterialCode.Length > 5)
             {
                 validRawMaterial = false;
                 sb.Append("\nInvalid Raw Material Code");
