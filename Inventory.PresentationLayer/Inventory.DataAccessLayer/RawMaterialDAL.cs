@@ -15,11 +15,11 @@ namespace Inventory.DataAccessLayer
     {
         public abstract bool AddRawMaterialDAL(RawMaterial newRawMaterial);
         public abstract bool DeleteRawMaterialDAL(string deleteRawMaterialID);
-        public abstract bool UpdateRawMaterialDAL(RawMaterial updateRawMaterial);
+        public abstract bool UpdateRawMaterialDAL(RawMaterial updateRawMaterial, List<RawMaterial> updatedRawMaterialList);
         public abstract List<RawMaterial> GetAllRawMaterialsDAL();
         public abstract RawMaterial SearchRawMaterialByIDDAL(string searchRawMaterialID);
-        public abstract RawMaterial SearchRawMaterialByNameDAL(string searchRawMaterialName);
-        public abstract RawMaterial SearchRawMaterialByCodeDAL(string searchRawMaterialCode);
+        public abstract List<RawMaterial> SearchRawMaterialByNameDAL(string searchRawMaterialName);
+        public abstract List<RawMaterial> SearchRawMaterialByCodeDAL(string searchRawMaterialCode);
         public abstract void RawMaterialSerializeDAL();
         public abstract List<RawMaterial> RawMaterialDeserializeDAL();
 
@@ -80,18 +80,21 @@ namespace Inventory.DataAccessLayer
         }
 
         //To update Raw Material's Name and Code
-        public override bool UpdateRawMaterialDAL(RawMaterial updateRawMaterial)
+        public override bool UpdateRawMaterialDAL(RawMaterial updateRawMaterial, List<RawMaterial> updatedRawMaterialList)
         {
             bool rawMaterialUpdated = false;
             try
             {
-                foreach (RawMaterial item in rawMaterialList)
+                foreach (RawMaterial item1 in updatedRawMaterialList)
                 {
-                    if (item.RawMaterialID == updateRawMaterial.RawMaterialID)
+                    foreach (RawMaterial item2 in rawMaterialList)
                     {
-                        item.RawMaterialName = updateRawMaterial.RawMaterialName;
-                        item.RawMaterialCode = updateRawMaterial.RawMaterialCode;
-                        rawMaterialUpdated = true;
+                        if(item1.RawMaterialID == item2.RawMaterialID)
+                        {
+                            item2.RawMaterialName = updateRawMaterial.RawMaterialName;
+                            item2.RawMaterialCode = updateRawMaterial.RawMaterialCode;
+                            rawMaterialUpdated = true;
+                        }
                     }
                 }
             }
@@ -129,17 +132,17 @@ namespace Inventory.DataAccessLayer
             return searchRawMaterial;
         }
 
-        //To search for Raw Material by Name
-        public override RawMaterial SearchRawMaterialByNameDAL(string searchRawMaterialName)
+        //To search for all Raw Material by Name
+        public override List<RawMaterial> SearchRawMaterialByNameDAL(string searchRawMaterialName)
         {
-            RawMaterial searchRawMaterial = null;
+            List<RawMaterial> searchRawMaterialList = new List<RawMaterial>();
             try
             {
                 foreach (RawMaterial item in rawMaterialList)
                 {
                     if (item.RawMaterialName == searchRawMaterialName)
                     {
-                        searchRawMaterial = item;
+                        searchRawMaterialList.Add(item);
                     }
                 }
             }
@@ -147,20 +150,20 @@ namespace Inventory.DataAccessLayer
             {
                 throw new InventoryException(ex.Message);
             }
-            return searchRawMaterial;
+            return searchRawMaterialList;
         }
 
-        //To search for Raw Material by Code
-        public override RawMaterial SearchRawMaterialByCodeDAL(string searchRawMaterialCode)
+        //To search for all Raw Material by Code
+        public override List<RawMaterial> SearchRawMaterialByCodeDAL(string searchRawMaterialCode)
         {
-            RawMaterial searchRawMaterial = null;
+            List<RawMaterial> searchRawMaterialList = new List<RawMaterial>();
             try
             {
                 foreach (RawMaterial item in rawMaterialList)
                 {
                     if (item.RawMaterialCode == searchRawMaterialCode)
                     {
-                        searchRawMaterial = item;
+                        searchRawMaterialList.Add(item);
                     }
                 }
             }
@@ -168,7 +171,7 @@ namespace Inventory.DataAccessLayer
             {
                 throw new InventoryException(ex.Message);
             }
-            return searchRawMaterial;
+            return searchRawMaterialList;
         }
 
         // Searializing Data of list in File
