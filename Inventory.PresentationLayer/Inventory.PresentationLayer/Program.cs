@@ -60,7 +60,7 @@ namespace Inventory.PresentationLayer
                         SearchProductByID();
                         break;
                     case 11:
-                        SearchProductByName();
+                        SearchProductByType();
                         break;
                     case 12:
                         SearchProductByCode();
@@ -472,7 +472,7 @@ namespace Inventory.PresentationLayer
                 {
                     Console.WriteLine("************************************************************************************************************");
                     Console.WriteLine("ID\t\tName\t\tCode\t\tMFD\t\t\tEXP\t\t\tType");
-                    Console.WriteLine("******************************************************************************");
+                    Console.WriteLine("************************************************************************************************************");
                     Console.WriteLine("{0}\t\t{1}\t\t{2}\t\t{3}\t\t{4}\t\t{5}", searchProduct.ProductID, searchProduct.ProductName, searchProduct.ProductCode, searchProduct.ProductMFD, searchProduct.ProductEXP, searchProduct.ProductType);
                     Console.WriteLine("************************************************************************************************************");
                 }
@@ -488,21 +488,24 @@ namespace Inventory.PresentationLayer
             }
         }
 
-        private static void SearchProductByName()
+        private static void SearchProductByType()
         {
             try
             {
-                string searchProductName;
-                Console.WriteLine("Enter Product Name to Search:");
-                searchProductName = Console.ReadLine();
+                string searchProductType;
+                Console.WriteLine("Enter Product Type to Search:");
+                searchProductType = Console.ReadLine();
                 ProductBL productBL = new ProductBL();
-                Product searchProduct = productBL.SearchProductByNameBL(searchProductName);
-                if (searchProduct != null)
+                List<Product> searchProductList = productBL.SearchProductByTypeBL(searchProductType);
+                if (searchProductList != null)
                 {
                     Console.WriteLine("************************************************************************************************************");
                     Console.WriteLine("ID\t\tName\t\tCode\t\tMFD\t\t\tEXP\t\t\tType");
-                    Console.WriteLine("******************************************************************************");
-                    Console.WriteLine("{0}\t\t{1}\t\t{2}\t\t{3}\t\t{4}\t\t{5}", searchProduct.ProductID, searchProduct.ProductName, searchProduct.ProductCode, searchProduct.ProductMFD, searchProduct.ProductEXP, searchProduct.ProductType);
+                    Console.WriteLine("************************************************************************************************************");
+                    foreach (Product item in searchProductList)
+                    {
+                        Console.WriteLine("{0}\t\t{1}\t\t{2}\t\t{3}\t\t{4}\t\t{5}", item.ProductID, item.ProductName, item.ProductCode, item.ProductMFD, item.ProductEXP, item.ProductType);
+                    }
                     Console.WriteLine("************************************************************************************************************");
                 }
                 else
@@ -524,13 +527,16 @@ namespace Inventory.PresentationLayer
                 Console.WriteLine("Enter Product Code to Search:");
                 searchProductCode = Console.ReadLine();
                 ProductBL productBL = new ProductBL();
-                Product searchProduct = productBL.SearchProductByCodeBL(searchProductCode);
-                if (searchProduct != null)
+                List<Product> searchProductList = productBL.SearchProductByCodeBL(searchProductCode);
+                if (searchProductList != null)
                 {
                     Console.WriteLine("************************************************************************************************************");
                     Console.WriteLine("ID\t\tName\t\tCode\t\tMFD\t\t\tEXP\t\t\tType");
-                    Console.WriteLine("******************************************************************************");
-                    Console.WriteLine("{0}\t\t{1}\t\t{2}\t\t{3}\t\t{4}\t\t{5}", searchProduct.ProductID, searchProduct.ProductName, searchProduct.ProductCode, searchProduct.ProductMFD, searchProduct.ProductEXP, searchProduct.ProductType);
+                    Console.WriteLine("************************************************************************************************************");
+                    foreach (Product item in searchProductList)
+                    {
+                        Console.WriteLine("{0}\t\t{1}\t\t{2}\t\t{3}\t\t{4}\t\t{5}", item.ProductID, item.ProductName, item.ProductCode, item.ProductMFD, item.ProductEXP, item.ProductType);
+                    }
                     Console.WriteLine("************************************************************************************************************");
                 }
                 else
@@ -549,18 +555,29 @@ namespace Inventory.PresentationLayer
         {
             try
             {
-                string updateProductID;
-                Console.WriteLine("Enter Product ID to Update Details:");
-                updateProductID = Console.ReadLine();
+                string updateProductType;
+                bool productUpdated = false;
+                Console.WriteLine("Enter Product Type that has to be Updated");
+                updateProductType = Console.ReadLine();
                 ProductBL productBL = new ProductBL();
-                Product updatedProduct = productBL.SearchProductByIDBL(updateProductID);
-                if (updatedProduct != null)
+                List<Product> updatedProductList = productBL.SearchProductByTypeBL(updateProductType);
+                if (updatedProductList != null)
                 {
-                    Console.WriteLine("Update Product Name :");
-                    updatedProduct.ProductName = Console.ReadLine();
+                    Product updatedProduct = new Product();
+
+                    Console.WriteLine("Update Product Type's Name :");
+                    updatedProduct.ProductType = Console.ReadLine();
+
                     Console.WriteLine("Update Product Code :");
                     updatedProduct.ProductCode = Console.ReadLine();
-                    bool productUpdated = productBL.UpdateProductBL(updatedProduct);
+                    if (updatedProduct.ProductCode.Length < 5)
+                    {
+                        productUpdated = productBL.UpdateProductBL(updatedProduct, updatedProductList);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Code should be less than 5 characters");
+                    }
                     if (productUpdated)
                         Console.WriteLine("Product Details Updated");
                     else
@@ -670,7 +687,7 @@ namespace Inventory.PresentationLayer
             Console.WriteLine("8. Add Product");
             Console.WriteLine("9. List All Product");
             Console.WriteLine("10. Search Product by ID");
-            Console.WriteLine("11. Search Product by Name");
+            Console.WriteLine("11. Search Product by Type");
             Console.WriteLine("12. Search Product by Code");
             Console.WriteLine("13. Update Product");
             Console.WriteLine("14. Delete Product");
