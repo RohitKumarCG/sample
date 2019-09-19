@@ -15,11 +15,11 @@ namespace Inventory.DataAccessLayer
     {
         public abstract bool AddProductDAL(Product newProduct);
         public abstract bool DeleteProductDAL(string deleteProductID);
-        public abstract bool UpdateProductDAL(Product updateProduct);
+        public abstract bool UpdateProductDAL(Product updateProduct, List<Product> updatedProductList);
         public abstract List<Product> GetAllProductsDAL();
         public abstract Product SearchProductByIDDAL(string searchProductID);
-        public abstract Product SearchProductByNameDAL(string searchProductName);
-        public abstract Product SearchProductByCodeDAL(string searchProductCode);
+        public abstract List<Product> SearchProductByTypeDAL(string searchProductType);
+        public abstract List<Product> SearchProductByCodeDAL(string searchProductCode);
         public abstract void ProductSerializeDAL();
         public abstract List<Product> ProductDeserializeDAL();
     }
@@ -78,18 +78,21 @@ namespace Inventory.DataAccessLayer
         }
 
         //To update Product
-        public override bool UpdateProductDAL(Product updateProduct)
+        public override bool UpdateProductDAL(Product updateProduct, List<Product> updatedProductList)
         {
             bool productUpdated = false;
             try
             {
-                foreach (Product item in productList)
+                foreach (Product item1 in updatedProductList)
                 {
-                    if (item.ProductID == updateProduct.ProductID)
+                    foreach (Product item2 in productList)
                     {
-                        item.ProductName = updateProduct.ProductName;
-                        //item.ProductCode = updateProduct.ProductCode;
-                        productUpdated = true;
+                        if (item1.ProductID == item2.ProductID)
+                        {
+                            item2.ProductType = updateProduct.ProductType;
+                            item2.ProductCode = updateProduct.ProductCode;
+                            productUpdated = true;
+                        }
                     }
                 }
             }
@@ -129,16 +132,16 @@ namespace Inventory.DataAccessLayer
         }
 
         //To search for Product by Name
-        public override Product SearchProductByNameDAL(string searchProductName)
+        public override List<Product> SearchProductByTypeDAL(string searchProductType)
         {
-            Product searchProduct = null;
+            List<Product> searchProductList = new List<Product>();
             try
             {
                 foreach (Product item in productList)
                 {
-                    if (item.ProductName == searchProductName)
+                    if (item.ProductType == searchProductType)
                     {
-                        searchProduct = item;
+                        searchProductList.Add(item);
                     }
                 }
             }
@@ -146,20 +149,20 @@ namespace Inventory.DataAccessLayer
             {
                 throw new InventoryException(ex.Message);
             }
-            return searchProduct;
+            return searchProductList;
         }
 
         //To search for Product by Code
-        public override Product SearchProductByCodeDAL(string searchProductCode)
+        public override List<Product> SearchProductByCodeDAL(string searchProductCode)
         {
-            Product searchProduct = null;
+            List<Product> searchProductList = new List<Product>();
             try
             {
                 foreach (Product item in productList)
                 {
                     if (item.ProductCode == searchProductCode)
                     {
-                        searchProduct = item;
+                        searchProductList.Add(item);
                     }
                 }
             }
@@ -167,7 +170,7 @@ namespace Inventory.DataAccessLayer
             {
                 throw new InventoryException(ex.Message);
             }
-            return searchProduct;
+            return searchProductList;
         }
 
         // Searializing Data of list in File
