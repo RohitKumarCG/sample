@@ -16,11 +16,11 @@ namespace Inventory.BusinessLayer
         public abstract bool ValidateProduct(Product product);
         public abstract bool AddProductBL(Product newProduct);
         public abstract bool DeleteProductBL(string deleteProductID);
-        public abstract bool UpdateProductBL(Product updateProduct);
+        public abstract bool UpdateProductBL(Product updateProduct, List<Product> updatedProductList);
         public abstract List<Product> GetAllProductsBL();
         public abstract Product SearchProductByIDBL(string searchProductID);
-        public abstract Product SearchProductByNameBL(string searchProductName);
-        public abstract Product SearchProductByCodeBL(string searchProductCode);
+        public abstract List<Product> SearchProductByTypeBL(string searchProductType);
+        public abstract List<Product> SearchProductByCodeBL(string searchProductCode);
         public abstract bool ProductSerializeBL();
         public abstract List<Product> ProductDeserializeBL();
     }
@@ -41,28 +41,15 @@ namespace Inventory.BusinessLayer
                     validProduct = false;
                     sb.Append("\nProduct ID already exists");
                 }
-            }*/
-            if (product.ProductID == String.Empty || product.ProductID.Length > 5)
-            {
-                validProduct = false;
-                sb.Append("\nInvalid Product ID");
             }
-
-            Regex regex1 = new Regex("^[a-zA-Z]+$");
+            */
+            Regex regex1 = new Regex("^[a-zA-Z ]+$");
             if (!regex1.IsMatch(product.ProductName) || product.ProductName == String.Empty || product.ProductName.Length > 30)
             {
                 validProduct = false;
                 sb.Append("\nInvalid Product Name");
             }
 
-            /*foreach (Product item in ProductDAL.productList)
-            {
-                if (item.ProductCode == product.ProductCode)
-                {
-                    validProduct = false;
-                    sb.Append("\nProduct Code already exists");
-                }
-            }*/
             Regex regex2 = new Regex("^[a-zA-Z]+$");
             if (!regex2.IsMatch(product.ProductCode) || product.ProductCode == String.Empty || product.ProductCode.Length > 4)
             {
@@ -85,12 +72,6 @@ namespace Inventory.BusinessLayer
                 validProduct = false;
                 sb.Append("\nInvalid Expiry Date");
             }
-
-            /*if ((product.ProductType != "juice") || (product.ProductType != "energy drink") || (product.ProductType != "tonic water") || (product.ProductType != "mocktail") || (product.ProductType != "softdrink"))
-            {
-                validProduct = false;
-                sb.Append("\nInvalid Product Type");
-            }*/
 
             if (validProduct == false)
             {
@@ -152,16 +133,14 @@ namespace Inventory.BusinessLayer
         }
 
         //validate raw material details before calling update
-        public override bool UpdateProductBL(Product updateProduct)
+        public override bool UpdateProductBL(Product updateProduct, List<Product> updatedProductList)
         {
             bool productUpdated = false;
             try
-            {
-                if (ValidateProduct(updateProduct))
-                {
-                    ProductDAL productDAL = new ProductDAL();
-                    productUpdated = productDAL.UpdateProductDAL(updateProduct);
-                }
+            {                
+                ProductDAL productDAL = new ProductDAL();
+                productUpdated = productDAL.UpdateProductDAL(updateProduct, updatedProductList);
+                
             }
             catch (InventoryException)
             {
@@ -216,13 +195,13 @@ namespace Inventory.BusinessLayer
         }
 
         //calling search method
-        public override Product SearchProductByNameBL(string searchProductName)
+        public override List<Product> SearchProductByTypeBL(string searchProductType)
         {
-            Product searchProduct = null;
+            List<Product> searchProductList = null;
             try
             {
                 ProductDAL productDAL = new ProductDAL();
-                searchProduct = productDAL.SearchProductByNameDAL(searchProductName);
+                searchProductList = productDAL.SearchProductByTypeDAL(searchProductType);
             }
             catch (InventoryException ex)
             {
@@ -232,17 +211,17 @@ namespace Inventory.BusinessLayer
             {
                 throw ex;
             }
-            return searchProduct;
+            return searchProductList;
         }
 
         //calling search method
-        public override Product SearchProductByCodeBL(string searchProductCode)
+        public override List<Product> SearchProductByCodeBL(string searchProductCode)
         {
-            Product searchProduct = null;
+            List<Product> searchProductList = null;
             try
             {
                 ProductDAL productDAL = new ProductDAL();
-                searchProduct = productDAL.SearchProductByCodeDAL(searchProductCode);
+                searchProductList = productDAL.SearchProductByCodeDAL(searchProductCode);
             }
             catch (InventoryException ex)
             {
@@ -252,7 +231,7 @@ namespace Inventory.BusinessLayer
             {
                 throw ex;
             }
-            return searchProduct;
+            return searchProductList;
         }
 
         //Serilize Data
